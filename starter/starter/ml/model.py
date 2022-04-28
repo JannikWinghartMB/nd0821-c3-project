@@ -1,8 +1,12 @@
+import pickle
+
 from aequitas.group import Group
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.svm import SVC
 import pandas as pd
 from . import data
+import os
+from pathlib import Path
 
 
 # Optional: implement hyperparameter tuning.
@@ -86,3 +90,29 @@ def inference(model, X):
         Predictions from the model.
     """
     return model.predict(X)
+
+
+def save_model(trained_model, encoder, lb, path):
+    Path(path).mkdir(exist_ok=True)
+
+    with open(os.path.join(path, "model.pkl"), "wb") as model_file:
+        pickle.dump(trained_model, model_file)
+
+    with open(os.path.join(path, "encoder.pkl"), "wb") as encoder_file:
+        pickle.dump(encoder, encoder_file)
+
+    with open(os.path.join(path, "lb.pkl"), "wb") as lb_file:
+        pickle.dump(lb, lb_file)
+
+
+def load_model(path):
+    with open(os.path.join(path, "model.pkl"), "rb") as model_file:
+        model = pickle.load(model_file)
+
+    with open(os.path.join(path, "encoder.pkl"), "rb") as encoder_file:
+        encoder = pickle.load(encoder_file)
+
+    with open(os.path.join(path, "lb.pkl"), "rb") as lb_file:
+        lb = pickle.load(lb_file)
+
+    return model, encoder, lb

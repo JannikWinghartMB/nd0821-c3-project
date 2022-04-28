@@ -30,9 +30,11 @@ X_train, y_train, encoder, lb = process_data(
 )
 
 # Train and save a model.
-model = train_model(X_train, y_train)
+trained_model = train_model(X_train, y_train)
+save_model(trained_model, encoder, lb, path="../model/trained_model")
 
-model_metrics_sliced = compute_model_metrics_sliced(model, test_data=test, categorical_features=cat_features, encoder=encoder, lb=lb, slice_features=["education"])
+loaded_model, loaded_encoder, loaded_lb = load_model("../model/trained_model")
+model_metrics_sliced = compute_model_metrics_sliced(loaded_model, test_data=test, categorical_features=cat_features, encoder=loaded_encoder, lb=loaded_lb, slice_features=["education"])
 print(model_metrics_sliced)
 with open("slice_output.txt", mode='w') as file_object:
     print(model_metrics_sliced, file=file_object)
