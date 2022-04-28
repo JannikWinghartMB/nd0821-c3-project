@@ -1,4 +1,8 @@
+from aequitas.group import Group
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.svm import SVC
+import pandas as pd
+from . import data
 
 
 # Optional: implement hyperparameter tuning.
@@ -18,7 +22,9 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
 
-    pass
+    model = SVC()
+    model.fit(X_train, y_train)
+    return model
 
 
 def compute_model_metrics(y, preds):
@@ -43,6 +49,28 @@ def compute_model_metrics(y, preds):
     return precision, recall, fbeta
 
 
+def compute_model_metrics_sliced(trained_model, test_data, categorical_features, encoder, lb, slice_features):
+    """
+    source: Exercise Solution in Chapter 2-10
+    https://classroom.udacity.com/nanodegrees/nd0821/parts/cd0582/modules/3a477328-761d-425d-9a83-49ae5ac95bab/lessons/bc211316-f7d5-49a8-8649-66981cc48ac9/concepts/edbbba60-38af-4bd5-8cbb-e1f193a86bd7
+    """
+
+    X_test, y_test, encoder, lb = data.process_data(
+        test_data, categorical_features=categorical_features, label="salary", training=False, encoder=encoder, lb=lb
+    )
+
+    pred = inference(trained_model, X_test)
+
+    df_aq = test_data.reset_index(drop=True).copy()
+    df_aq['label_value'] = y_test
+    df_aq['score'] = pred
+
+    group = Group()
+    xtab, idxs = group.get_crosstabs(df_aq, attr_cols=slice_features)
+
+    return xtab
+
+
 def inference(model, X):
     """ Run model inferences and return the predictions.
 
@@ -57,4 +85,4 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    return model.predict(X)
