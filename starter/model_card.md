@@ -8,6 +8,7 @@ The model is a sklearn Support Vector Classifier with default settings.
 
 ## Intended Use
 The model can be used to predict whether income exceeds $50K/yr based on census data.
+If the income is below or equal to $50K/yr, the model will return 0, otherwise 1.
 To predict the income category the model needs information about age, workclass, fnlwgt
 education, education-num, marital-status, occupation, relationship, race, sex, capital-gain, 
 capital-loss, hours-per-week and native-country.   

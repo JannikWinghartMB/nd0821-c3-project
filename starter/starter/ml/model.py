@@ -4,7 +4,7 @@ from aequitas.group import Group
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.svm import SVC
 import pandas as pd
-from . import data
+from starter.ml import data
 import os
 from pathlib import Path
 
