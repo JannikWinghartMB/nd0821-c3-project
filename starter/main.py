@@ -9,9 +9,6 @@ from starter.ml.data import process_data
 
 app = FastAPI()
 
-print("ISDIR", os.path.isdir(".dvc"), file=sys.stderr)
-print("os.environ", os.environ, file=sys.stderr)
-
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
     if os.system("dvc pull") != 0:
