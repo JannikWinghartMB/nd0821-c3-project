@@ -11,7 +11,7 @@ app = FastAPI()
 
 # source: https://knowledge.udacity.com/questions/689224
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
-    os.system("rm -f .dvc/tmp/lock")
+    os.system("rm -f -r .dvc/tmp/lock .dvc/cache")
     os.system("dvc config core.no_scm true")
     dvc_output = subprocess.run(["dvc", "pull"], capture_output=True, text=True)
     if dvc_output.returncode != 0:
@@ -20,7 +20,7 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
         print("dvc pull failed")
     else:
         print("dvc pull successful")
-    # os.system("rm -r .dvc .apt/usr/lib/dvc -f")
+    os.system("rm -r .dvc .apt/usr/lib/dvc -f")
 
 
 class PersonData(BaseModel):
