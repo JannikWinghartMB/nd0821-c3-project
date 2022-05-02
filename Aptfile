@@ -1,4 +1,1 @@
-#!/usr/bin/env aptfile
-
-# install a package from a download url
-package_from_url "dvc" "https://github.com/iterative/dvc/releases/download/2.0.18/dvc_2.0.18_amd64.deb"
+https://github.com/iterative/dvc/releases/download/2.0.18/dvc_2.0.18_amd64.deb
