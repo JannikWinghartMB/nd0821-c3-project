@@ -1,0 +1,5 @@
+.dvc/
+.github/
+data/
+model/
+screenshots/
