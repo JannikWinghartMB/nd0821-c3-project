@@ -11,7 +11,9 @@ app = FastAPI()
 
 # source: https://knowledge.udacity.com/questions/689224
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
-    print(subprocess.run(["ls", "-r"], capture_output=True, text=True))
+    ls_output = subprocess.run(["ls", "-r"], capture_output=True, text=True)
+    print(ls_output.stdout)
+    print(ls_output.stderr)
     os.system("rm -f -r .dvc/tmp/lock .dvc/cache")
     os.system("dvc config core.no_scm true")
     dvc_output = subprocess.run(["dvc", "pull"], capture_output=True, text=True)
