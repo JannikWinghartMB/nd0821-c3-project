@@ -11,18 +11,7 @@ app = FastAPI()
 
 # source: https://knowledge.udacity.com/questions/689224
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
-    ls_output = subprocess.run(["ls", "-a", "/app/.dvc"], capture_output=True, text=True)
-    print(ls_output.stdout)
-    print(ls_output.stderr)
-    ls_output = subprocess.run(["ls", "-a", "/app/.dvc/cache"], capture_output=True, text=True)
-    print(ls_output.stdout)
-    print(ls_output.stderr)
-    ls_output = subprocess.run(["ls", "-a", "/app/.dvc/tmp"], capture_output=True, text=True)
-    print(ls_output.stdout)
-    print(ls_output.stderr)
-    # os.system("rm -f -r .dvc/tmp/lock .dvc/cache")
     os.system("dvc config core.no_scm true")
-    os.system("dvc config core.hardlink_lock true")
     dvc_output = subprocess.run(["dvc", "pull", "--remote", "s3remote"], capture_output=True, text=True)
     if dvc_output.returncode != 0:
         print("FAILED")
