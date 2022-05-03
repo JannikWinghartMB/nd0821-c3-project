@@ -5,7 +5,7 @@ from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.svm import SVC
 from aequitas.group import Group
 
-from starter.starter.ml import data
+from . import data
 
 
 # Optional: implement hyperparameter tuning.

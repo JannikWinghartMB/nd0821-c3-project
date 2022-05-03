@@ -1,4 +1,4 @@
-import model
+from . import model
 import pytest
 import numpy as np
 from sklearn.svm import SVC
