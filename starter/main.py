@@ -1,6 +1,4 @@
 import os
-import sys
-import subprocess
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
@@ -9,21 +7,11 @@ from starter.ml.data import process_data
 
 app = FastAPI()
 
-# source: https://knowledge.udacity.com/questions/689224
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
-    dvc_output = subprocess.run(["dvc", "pull", "--remote", "s3remote"], capture_output=True, text=True)
-    if dvc_output.returncode != 0:
-        print("FAILED")
-        ls_output = subprocess.run(["ls", "-a", "/app/.dvc/tmp"], capture_output=True, text=True)
-        print(ls_output.stdout)
-        print(ls_output.stderr)
-        print(dvc_output.stdout)
-        print(dvc_output.stderr)
-        print("dvc pull failed")
-    else:
-        print("dvc pull successful")
-    os.system("rm -r .dvc .apt/usr/lib/dvc -f")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 
 class PersonData(BaseModel):
@@ -62,6 +50,7 @@ class PersonData(BaseModel):
             }
         }
 
+
 @app.get("/")
 async def welcome():
     return {"message": "Welcome."}
@@ -69,7 +58,7 @@ async def welcome():
 
 @app.post("/")
 async def perform_inference(input_person: PersonData):
-    model, encoder, lb = load_model("model/trained_model")
+    model, encoder, lb = load_model("starter/model/trained_model")
     df = pd.DataFrame([input_person.dict()])
     df = df.rename(columns={
         "marital_status": "marital-status",

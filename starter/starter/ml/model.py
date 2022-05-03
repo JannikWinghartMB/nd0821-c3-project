@@ -1,11 +1,11 @@
-import pickle
-
-from sklearn.metrics import fbeta_score, precision_score, recall_score
-from sklearn.svm import SVC
-import pandas as pd
-from starter.ml import data
 import os
 from pathlib import Path
+import pickle
+from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.svm import SVC
+from aequitas.group import Group
+
+from starter.starter.ml import data
 
 
 # Optional: implement hyperparameter tuning.
@@ -57,7 +57,6 @@ def compute_model_metrics_sliced(trained_model, test_data, categorical_features,
     source: Exercise Solution in Chapter 2-10
     https://classroom.udacity.com/nanodegrees/nd0821/parts/cd0582/modules/3a477328-761d-425d-9a83-49ae5ac95bab/lessons/bc211316-f7d5-49a8-8649-66981cc48ac9/concepts/edbbba60-38af-4bd5-8cbb-e1f193a86bd7
     """
-    from aequitas.group import Group
 
     X_test, y_test, encoder, lb = data.process_data(
         test_data, categorical_features=categorical_features, label="salary", training=False, encoder=encoder, lb=lb
