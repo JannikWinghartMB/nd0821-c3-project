@@ -56,7 +56,7 @@ async def welcome():
     return {"message": "Welcome."}
 
 
-@app.post("/")
+@app.post("/inference")
 async def perform_inference(input_person: PersonData):
     model, encoder, lb = load_model("starter/model/trained_model")
     df = pd.DataFrame([input_person.dict()])

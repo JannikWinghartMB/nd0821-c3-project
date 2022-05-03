@@ -1,3 +1,17 @@
+# Submission Details
+
+- Deployment to Heroku via connection to GitHub is not possible.  
+Same Issue as in https://knowledge.udacity.com/questions/834066.  
+I deployed to Heroku with git instead.
+
+- GitHub Link: https://github.com/JannikWinghartMB/nd0821-c3-project
+
+- Path to script that sends post request to live api: post_live_api.py
+
+- Link to Live API: https://nanodegree-project3-app.herokuapp.com/docs
+
+# Instructions
+
 Working in a command line environment is recommended for ease of use with git and dvc. If on Windows, WSL1 or 2 is recommended.
 
 # Environment Set up

@@ -35,7 +35,7 @@ def test_post_inference_case_0():
 
 
     # Act
-    r = client.post("/", json=body)
+    r = client.post("/inference/", json=body)
 
     # Assert
     assert r.status_code == 200
@@ -65,7 +65,7 @@ def test_post_inference_case_1():
     }
 
     # Act
-    r = client.post("/", json=body)
+    r = client.post("/inference/", json=body)
 
     # Assert
     assert r.status_code == 200
